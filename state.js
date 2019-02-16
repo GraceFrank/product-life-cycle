@@ -1,4 +1,4 @@
-var TrafficLight = function () {
+var Product = function () {
     var count = 0;
     var currentState = new Producer(this);
  
@@ -14,44 +14,43 @@ var TrafficLight = function () {
     };
 }
  
-var Producer = function (light) {
-    this.light = light;
+var Producer = function (stage) {
+    this.stage = stage;
  
     this.go = function () {
         console.log(`producer produced`);
-        light.change(new Retailer(light));
+        stage.change(new Retailer(stage));
     }
 };
  
-var Retailer = function (light) {
-    this.light = light;
+var Retailer = function (stage) {
+    this.stage = stage;
  
     this.go = function () {
         console.log(`Retailer`)
-        light.change(new Consumer(light));
+        stage.change(new Consumer(stage));
     }
 };
  
-var Consumer = function (light) {
-    this.light = light;
+var Consumer = function (stage) {
+    this.stage = stage;
  
     this.go = function () {
         console.log(`Consumer`);
-        light.change(new Recycler(light));
+        stage.change(new Recycler(stage));
     }
 };
-var Recycler = function (light) {
-    this.light = light;
+var Recycler = function (stage) {
+    this.stage = stage;
  
     this.go = function () {
         console.log(`Recycler`);
-        light.change(new Producer(light));
     }
 };
 
 function run() {
-    var light = new TrafficLight();
-    light.start();
+    var kim = new Product();
+    kim.start();
  
     
 }
