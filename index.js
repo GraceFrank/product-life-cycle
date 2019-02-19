@@ -1,21 +1,19 @@
-const fs = require('fs');
-const productInput = "Product-Input.txt";
+const fs = require("fs");
+const input = require('./data/cleanedInput');
+const Product = require("./states/Product");
+const Producer = require("./states/Producer");
+const Consumer = require("./states/Consumer");
+const Retailer = require("./states/Retailer");
+const Recycler = require("./states/Recycler");
+const getStage = require("./states/getStage");
 
-const filesize = fs.statSync(productInput).size;
-let buf = new Buffer.alloc(filesize);
-
-console.log(filesize);
- 
-fs.open(productInput, "r+", (err, fd)=>{
-    if(err){
-        console.log(`code: ${err.code}\nmessage: ${err.message}`);
-    }else{
-        console.log(`file ${fd} opened sucessfully`);
-
-        let bytes = fs.readSync(fd, buf, 0, filesize, 0);
-        console.log(buf.toString());
-        fs.close(fd, (err)=>{
-            console.log("file is been closed");
-        })
-    }
-})
+function run(file) {
+  for (let i = 1; i < file.length; i++) {
+    let drink = new Product(
+      `${file[i][0]} ${file[i][1]}`,
+      getStage(file[i][2])
+    );
+    drink.start();
+  }
+}
+run(input);
