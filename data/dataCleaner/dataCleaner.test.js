@@ -1,32 +1,17 @@
 const cleaner = require("./dataCleaner");
 
-test("a case where there are empty spaces and charcters", () => {
+test("a case where there are only characters on new line", () => {
   const string1 = `//
   //
   //
-  //
-  //
-  Calista Na Producer
-  Lucas Menefee Consumer
-  Shon Croley Producer
-  Owen Bartkowski Retailer
-  Lanny Service   Recycler
-  Kimberli Kravitz Prod
-  Ilana Bargas		Recycler
-  Stephania Durand
-  Carly Piazza 	 	
-  .;[
-  Weston Mainer 		Consumer`;
+`;
 
-  const string2 = `Calista Na Producer
-  Lucas Menefee Consumer
-  Shon Croley Producer
-  Owen Bartkowski Retailer
-  Lanny Service Recycler
-  Kimberli Kravitz Prod
-  Ilana Bargas Recycler
-  Stephania Durand
-  Carly Piazza
-  Weston Mainer Consumer`;
+  const string2 = ``;
+  expect(cleaner(string1)).toBe(string2);
+});
+
+test("a case where there are excess spaces", () => {
+  const string1 = `Rosetta Fagen	  	 	 	Producer`;
+  const string2 = `Rosetta Fagen Producer`;
   expect(cleaner(string1)).toBe(string2);
 });

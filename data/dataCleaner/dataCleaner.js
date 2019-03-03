@@ -12,9 +12,10 @@ function clean(string) {
   //replace all space folloed by  new line with a single new line
   string = string.replace(/ \n+/gi, "\n");
 
-  //and finally replace all new lines that appear one or more times with one single new line
+  //replace all new lines that appear one or more times with one single new line
   string = string.replace(/\n+/gi, "\n");
 
+  //and finally remove any new line at the begining of the string
   string = string.replace(/^\n/, "");
   return string;
 }
