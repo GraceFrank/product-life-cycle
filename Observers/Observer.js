@@ -1,4 +1,6 @@
 const writeToOutput = require('../data/dataWriter/writeFile');
+const isLast = require('../isLastSingleton/isLast');
+
 // Observer Class
 class Observer {
   constructor(stage) {
@@ -11,8 +13,15 @@ class Observer {
   subscribe(subscriber) {
     this.observer = subscriber;
   }
+
+  start(product){
+    
+  }
  
   notify(product) {
+    if(isLast.status() === true){
+      return;
+    }
     writeToOutput(`${product.name} ${product.productNo} ${this.stage}`, () => {
       this.observer.notify(product);
       product.stage = this.stage;      

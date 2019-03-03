@@ -1,14 +1,77 @@
-const input = require("./data/cleanedInput");
-const Product = require("./states/Product/Product");
-const getStage = require("./states/getStage/getStage");
+let state = 0;
+const writeToOutput = require("./data/dataWriter/writeFile");
+const isLast = require("./isLastSingleton/isLast");
 
-function run(file) {
-  for (let i = 1; i < file.length; i++) {
-    let drink = new Product(
-      `${file[i][0]} ${file[i][1]}`,
-      getStage[file[i][2]]
-    );
-    drink.start();
+class Observer {
+  constructor(stage) {
+    /*this is where the observer class (either producer,recycler,etc) depending on the class
+    and since its only one event i dindnt make it an array */
+    this.observer;
+    this.stage = stage;
+  }
+
+  subscribe(subscriber) {
+    this.observer = subscriber;
+  }
+
+  stop(product) {
+    this.observer.stop();
+    return;
+  }
+
+  notify(product) {
+    console.log(isLast.status());
+    if (state === 5000) {
+      isLast.setStatus(true);
+    }
+    if(isLast.status()){
+      return;
+    }
+    writeToOutput(`${product.name} ${product.productNo} ${this.stage}`, () => {
+      this.observer.notify(product);
+      product.stage = this.stage;
+      state++;
+    });
   }
 }
-run(input);
+
+const Producer = new Observer("Producer");
+const Retailer = new Observer("Retailer");
+const Consumer = new Observer("Consumer");
+const Recycler = new Observer("Recycler");
+// const input = require('../data/cleanedInput');
+
+Producer.subscribe(Retailer);
+Retailer.subscribe(Consumer);
+Consumer.subscribe(Recycler);
+Recycler.subscribe(Producer);
+
+// Producer.notify({ name: "Jacqui Mandel", productNo: 65, stage: "Producer" });
+
+function stage(obj) {
+  switch (obj.stage) {
+    case "Producer":
+      Producer.notify(obj);
+      break;
+
+    case "Retailer":
+      Retailer.notify(obj);
+      break;
+
+    case "Consumer":
+      Consumer.notify(obj);
+      break;
+
+    case "Recycler":
+      Consumer.notify(obj);
+      break;
+  }
+}
+
+function run() {
+  stage({ name: "Jacqui Mandel", productNo: 65, stage: "Producer" });
+  stage({ name: "Sweet Tdelss", productNo: 55, stage: "Retailer" });
+  stage({ name: "Hazel Nuts", productNo: 55, stage: "Recycler" });
+}
+
+run();

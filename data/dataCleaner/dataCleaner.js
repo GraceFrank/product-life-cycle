@@ -15,6 +15,7 @@ function clean(string) {
   //and finally replace all new lines that appear one or more times with one single new line
   string = string.replace(/\n+/gi, "\n");
 
+  string = string.replace(/^\n/, "");
   return string;
 }
 

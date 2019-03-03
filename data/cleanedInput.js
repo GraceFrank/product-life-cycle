@@ -19,6 +19,7 @@ function cleanAndConvert(string) {
   return string;
 }
 
-input = cleanAndConvert(input)
-console.log(input);
+input = cleanAndConvert(input);
+
+
 module.exports = input;
