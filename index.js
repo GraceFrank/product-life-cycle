@@ -15,7 +15,7 @@ Recycler.subscribe(Producer);
 
 function stage(obj) {
   switch (obj.stage) {
-    case "Producer":
+    default :
       Producer.notify(obj);
       break;
 
@@ -28,7 +28,7 @@ function stage(obj) {
       break;
 
     case "Recycler":
-      Consumer.notify(obj);
+      Recycler.notify(obj);
       break;
   }
 }
