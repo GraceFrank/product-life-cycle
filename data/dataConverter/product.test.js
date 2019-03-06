@@ -26,7 +26,7 @@ test('if no parameter is passed for stage it gives a default parameter of Produc
 });
 
 test('if a wrong parameter is passed for stage it gives a default parameter of Producer', ()=>{
-  const newProduct = new Product('cocacola', 88, 'prod');
+  const newProduct = new Product('cocacola', 88, 'Producer');
   expect(newProduct).toEqual({
     name: 'cocacola', 
     productNo: 88,
