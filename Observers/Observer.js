@@ -20,7 +20,7 @@ class Observer {
     }
     fs.appendFile(
       "./data/output.txt",
-      `${product.name} ${product.productNo} ${this.stage}`,
+      `${product.name} ${product.productNo} ${this.stage}\n`,
       () => {
         this.observer.notify(product);
         product.stage = this.stage;
