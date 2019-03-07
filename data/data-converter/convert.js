@@ -1,8 +1,8 @@
-//convert is used to convert an eintire input into an array of objects
+//convert is used to convert an entire input into an array of objects
 
 const Product = require("./Product");
 
-function convert(input) {
+convert = input => {
   //asuming the input is a string, we split it into an array at every newline
   input = input.split("\n");
 
@@ -15,6 +15,6 @@ function convert(input) {
     input[i] = new Product(`${input[i][0]} ${input[i][1]}`, i, input[i][2]);
   }
   return input;
-}
+};
 
 module.exports = convert;

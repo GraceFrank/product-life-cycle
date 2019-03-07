@@ -1,5 +1,5 @@
 //using regEx to remove impunities from file
-function clean(string) {
+const clean = string => {
   //replace anything that is not new line or a word with a single space
   string = string.replace(/[^\w \n]/gi, " ");
 
@@ -18,6 +18,6 @@ function clean(string) {
   //and finally remove any new line at the begining of the string
   string = string.replace(/^\n/, "");
   return string;
-}
+};
 
 module.exports = clean;

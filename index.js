@@ -1,6 +1,6 @@
 const Observer = require("./observers/observer");
 const input = require("./data/cleaned-input");
-const isLast = require("./is-last-singleton/is-last");
+const isLast = require("./last-object-status/is-last");
 
 const inputResult = input("./data/product-input.txt");
 
@@ -14,9 +14,8 @@ Retailer.subscribe(Consumer);
 Consumer.subscribe(Recycler);
 Recycler.subscribe(Producer);
 
-// Producer.notify({ name: "Jacqui Mandel", productNo: 65, stage: "Producer" });
-
-function stage(obj) {
+const stage = obj => {
+  //stage function decides which stage will handle a product from the input file
   switch (obj.stage) {
     default:
       Producer.notify(obj);
@@ -34,11 +33,12 @@ function stage(obj) {
       Recycler.notify(obj);
       break;
   }
-}
+};
 
 for (const value of inputResult) {
   if (inputResult.length - 1 === value.productNo) {
-    isLast.setLastObj(value);
+    // checking for the last object in the input
+    isLast.setLastObj(value); //once last object is reached, its then passed to isLast singleton object
   }
   stage(value);
 }
