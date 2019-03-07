@@ -2,7 +2,7 @@ const Observer = require("./observers/observer");
 const input = require("./data/cleaned-input");
 const isLast = require("./is-last-singleton/is-last");
 
-const inputResult = input('./data/product-input.txt')
+const inputResult = input("./data/product-input.txt");
 
 const Producer = new Observer("Producer");
 const Retailer = new Observer("Retailer");

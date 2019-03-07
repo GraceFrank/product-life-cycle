@@ -1,4 +1,4 @@
-const isLast = require("./isLast");
+const isLast = require("./is-last");
 
 let first = isLast;
 let second = isLast;
