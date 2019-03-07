@@ -1,5 +1,5 @@
-const writeToOutput = require("../data/dataWriter/writeFile");
-const isLast = require("../isLastSingleton/isLast");
+const fs = require("fs");
+const isLast = require("../is-last-singleton/is-last");
 
 // Observer Class
 class Observer {
@@ -14,15 +14,18 @@ class Observer {
     this.observer = subscriber;
   }
 
-
   notify(product) {
     if (isLast.status() === true) {
       return;
     }
-    writeToOutput(`${product.name} ${product.productNo} ${this.stage}`, () => {
-      this.observer.notify(product);
-      product.stage = this.stage;
-    });
+    fs.appendFile(
+      "./data/output.txt",
+      `${product.name} ${product.productNo} ${this.stage}`,
+      () => {
+        this.observer.notify(product);
+        product.stage = this.stage;
+      }
+    );
   }
 }
 

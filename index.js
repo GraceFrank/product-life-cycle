@@ -1,10 +1,13 @@
-const Observer = require("./Observers/Observer");
+const Observer = require("./observers/observer");
+const input = require("./data/cleaned-input");
+const isLast = require("./is-last-singleton/is-last");
+
+const inputResult = input('./data/product-input.txt')
+
 const Producer = new Observer("Producer");
 const Retailer = new Observer("Retailer");
 const Consumer = new Observer("Consumer");
 const Recycler = new Observer("Recycler");
-const input = require("./data/cleanedInput");
-const isLast = require("./isLastSingleton/isLast");
 
 Producer.subscribe(Retailer);
 Retailer.subscribe(Consumer);
@@ -15,7 +18,7 @@ Recycler.subscribe(Producer);
 
 function stage(obj) {
   switch (obj.stage) {
-    default :
+    default:
       Producer.notify(obj);
       break;
 
@@ -33,8 +36,8 @@ function stage(obj) {
   }
 }
 
-for (const value of input) {
-  if (input.length - 1 === value.productNo) {
+for (const value of inputResult) {
+  if (inputResult.length - 1 === value.productNo) {
     isLast.setLastObj(value);
   }
   stage(value);
