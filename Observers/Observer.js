@@ -17,7 +17,7 @@ class Observer {
   notify(product) {
     fs.appendFile(
       "./data/output.txt",
-      `${product.name} ${product.productNo} ${this.stage}\n`,
+      `${product.name} ${product.productNo} moved from ${this.stage} to ${this.observer.stage}\n`,
       () => {
         if (isLast.status() === true) {
           return;
